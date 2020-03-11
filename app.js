@@ -18,4 +18,4 @@ app.use(express.static('assets'));
  
 app.use('/assets', express.static(__dirname + '/assets'));
  
-app.listen('https://carlaonate-mp-commerce-nodejs.herokuapp.com/');
+app.listen(process.env.PORT || 3000)
