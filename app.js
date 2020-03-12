@@ -10,7 +10,7 @@ app.set('view engine', 'handlebars');
 // Agrega credenciales
 mercadopago.configure({
     sandbox: true,
-    access_token: 'TEST-8647754926493-031119-7e542abc4c800e76f40a2d5774bba08a-535129128'
+    access_token: 'APP_USR-6718728269189792-112017-dc8b338195215145a4ec035fdde5cedf-491494389'
 });
 
 // Crea un objeto de preferencia
@@ -22,6 +22,7 @@ app.get('/', function (req, res) {
 
 app.get('/detail', function (req, res) {
     const {img, title, price, unit} = req.query
+
     let preference = {
         items: [
           {
@@ -30,12 +31,40 @@ app.get('/detail', function (req, res) {
             "unit_price": Number(price),
             "quantity": Number(unit),
           }
-        ]
+        ],
+        payer: {
+            name: "Lalo",
+            surname: "Landa",
+            // email: "t​est_user_98623993@testuser.com",
+            phone: {
+              area_code: "55",
+              number: 49737300
+            },
+            address: {
+              street_name: "Insurgentes Sur",
+              street_number: 1602,
+              zip_code: '03940'
+            }
+          },
+          payment_methods: {
+            excluded_payment_methods: [
+                {
+                    "id":"amex"
+                }
+            ],
+            excluded_payment_types: [
+                {
+                    "id": "atm"
+                }
+            ],
+            installments: 6
+        },
+        external_reference: 'ABCD1234'
     }
+
 
     mercadopago.preferences.create(preference)
       .then(function(response){
-      // Este valor reemplazará el string "$$init_point$$" en tu HTML
         global.init_point = response.body.init_point;
         res.render('detail', {img, title, price, unit, id: response.body.id});
       }).catch(function(error){
