@@ -33,15 +33,15 @@ app.get('/detail', function (req, res) {
           }
         ],
         payer: {
-            name: "Lalo",
-            surname: "Landa",
-            // email: "t​est_user_98623993@testuser.com",
+            name: 'Lalo',
+            surname: 'Landa',
+            email: 'test_user_98623993@testuser.com',
             phone: {
-              area_code: "55",
+              area_code: '55',
               number: 49737300
             },
             address: {
-              street_name: "Insurgentes Sur",
+              street_name: 'Insurgentes Sur',
               street_number: 1602,
               zip_code: '03940'
             }
@@ -59,7 +59,10 @@ app.get('/detail', function (req, res) {
             ],
             installments: 6
         },
-        external_reference: 'ABCD1234'
+        external_reference: 'ABCD1234',
+        back_urls: {
+            "success": "https://carlaonate-mp-commerce-nodejs.herokuapp.com/success"
+        }
     }
 
 
@@ -72,6 +75,10 @@ app.get('/detail', function (req, res) {
     });
 });
 
+app.post('/success', (req, res) => {
+    if(!req.body) return res.status(404)
+    res.status(200)
+})
 
 app.use(express.static('assets'));
 
