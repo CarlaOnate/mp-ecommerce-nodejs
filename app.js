@@ -60,9 +60,7 @@ app.get('/detail', function (req, res) {
             installments: 6
         },
         external_reference: 'ABCD1234',
-        back_urls: {
-            "success": "https://carlaonate-mp-commerce-nodejs.herokuapp.com/success"
-        }
+        notification_url: "https://carlaonate-mp-commerce-nodejs.herokuapp.com/success"
     }
 
 
